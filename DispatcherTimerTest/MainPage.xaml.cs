@@ -33,18 +33,9 @@ namespace DispatcherTimerTest
             this.newDevice = new MeasureLengthDevice();
             //Create newDevice object TickHandler for use by UI
             this.newDevice.NewMeasureTick += new MeasureLengthDevice.TimerTickHandler(TickedTime);
-        }
 
-        //Start Timer
-        private void Start_Click(object sender, RoutedEventArgs e)
-        {
-            this.newDevice.StartCollecting();
-        }
-
-        //Stop Timer
-        private void Stop_Click(object sender, RoutedEventArgs e)
-        {
-            this.newDevice.StopCollecting();
+            //Initialize RadioButton DefaultCheck
+            this.metricRadioButton.IsChecked = true;
         }
 
         //On Tick_Timer write to textblock using delegate handler.
@@ -52,6 +43,37 @@ namespace DispatcherTimerTest
         private void TickedTime(int mostRecentMeasure)
         {
             this.dataTest.Text = this.newDevice.MostRecentMeasure.ToString();
+
+            if (this.newDevice.UnitsToUse == Units.Metric)
+            {
+                this.newMeasure.Text = this.newDevice.ImperialValue(this.newDevice.MostRecentMeasure).ToString();
+            }
+            else
+            {
+                this.newMeasure.Text = this.newDevice.MetricValue(this.newDevice.MostRecentMeasure).ToString();
+            }
+        }
+
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            this.newDevice.StartCollecting();
+            toggleTest.Content = "Stop";
+        }
+
+        private void ToggleTest_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.newDevice.StopCollecting();
+            toggleTest.Content = "Start";
+        }
+
+        private void MetricRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            this.newDevice.UnitsToUse = Units.Metric;
+        }
+
+        private void ImperialRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            this.newDevice.UnitsToUse = Units.Imperial;
         }
     }
 }

@@ -6,12 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="Black">
 
     <Grid>
-        <Button x:Name="start" Content="Start" HorizontalAlignment="Left" Margin="133,167,0,0" VerticalAlignment="Top" Click="Start_Click"/>
-        <Button x:Name="stop" Content="Stop" HorizontalAlignment="Left" Margin="133,236,0,0" VerticalAlignment="Top" Click="Stop_Click"/>
-        <TextBlock x:Name="dataTest" HorizontalAlignment="Left" Margin="245,167,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="dataTest" HorizontalAlignment="Left" Margin="245,167,0,0" Text="Measurement" TextWrapping="Wrap" VerticalAlignment="Top" RequestedTheme="Default"/>
+        <ToggleButton x:Name="toggleTest" Content="Start" HorizontalAlignment="Left" Margin="126,161,0,0" VerticalAlignment="Top" Checked="ToggleButton_Checked" Unchecked="ToggleTest_Unchecked"/>
+        <RadioButton x:Name="metricRadioButton" Content="Metric" HorizontalAlignment="Left" Margin="126,211,0,0" VerticalAlignment="Top" GroupName="Units" Checked="MetricRadioButton_Checked"/>
+        <RadioButton x:Name="imperialRadioButton" Content="Imperial" HorizontalAlignment="Left" Margin="126,248,0,0" VerticalAlignment="Top" GroupName="Units" Checked="ImperialRadioButton_Checked"/>
+        <TextBlock x:Name="newMeasure" HorizontalAlignment="Left" Margin="396,167,0,0" Text="Converted Unit" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

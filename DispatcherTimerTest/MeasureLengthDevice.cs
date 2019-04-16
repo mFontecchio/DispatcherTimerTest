@@ -17,13 +17,13 @@ namespace DispatcherTimerTest
         //Initial Create Method
         public MeasureLengthDevice()
         {
-            this.unitsToUse = Units.Imperial;
+            this.unitsToUse = Units.Metric;
             this.dataCaptured = new int[0];
             this.mostRecentMeasure = 0;
         }
 
         //Property for unitsToUse
-        Units UnitsToUse
+        public Units UnitsToUse
         {
             get => this.unitsToUse;
             set => this.unitsToUse = value;
@@ -77,8 +77,12 @@ namespace DispatcherTimerTest
             //Create timer object and intialize
             timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
-            timer.Interval = new TimeSpan(0, 0, 1);
+            //set interval to 15 seconds
+            timer.Interval = new TimeSpan(0, 0, 15);
+            //start timer
             timer.Start();
+            //get a measurement when timer starts
+            timer_Tick(this, this);
     }
 
         //Stop the timer that started in StartCollecting().
