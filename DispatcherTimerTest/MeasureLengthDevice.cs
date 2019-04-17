@@ -13,13 +13,15 @@ namespace DispatcherTimerTest
         private int[] dataCaptured;             //This field will store a history of a limited set of recently captured measurements. Once the array is full, the class should start overwriting the oldest elements while continuing to record the newest captures.
         private int mostRecentMeasure;          //This field will store the most recent measurement captured for convenience of display
         DispatcherTimer timer;
+        private int queueCount;
 
         //Initial Create Method
         public MeasureLengthDevice()
         {
             this.unitsToUse = Units.Metric;
-            this.dataCaptured = new int[0];
+            this.dataCaptured = new int[10];
             this.mostRecentMeasure = 0;
+            this.queueCount = 0;
         }
 
         //Property for unitsToUse
@@ -40,32 +42,38 @@ namespace DispatcherTimerTest
             }
         }
 
+        //Counter
+        public int QueueCount
+        {
+            get => this.queueCount;
+        }
+
         //Return the contents of the dataCapturedarray.
         public int[] GetRawData()
         {
-            throw new NotImplementedException();
+            return this.dataCaptured;
         }
 
         //Return the current value from mostRecentMeasure- convert it if unitsToUse is not Imperial.
-        public double ImperialValue(double capturedValue)
+        public decimal ImperialValue(decimal capturedValue)
         {
-            double convertedValue = capturedValue;
+            decimal convertedValue = capturedValue;
 
             if (this.unitsToUse != Units.Imperial)
             {
-                convertedValue = convertedValue * 0.3937;
+                convertedValue = convertedValue * 0.3937m;
             }
             return convertedValue;
         }
 
         //Return the current value from mostRecentMeasure- convert it if unitsToUse is not Metric.
-        public double MetricValue(double capturedValue)
+        public decimal MetricValue(decimal capturedValue)
         {
-            double convertedValue = capturedValue;
+            decimal convertedValue = capturedValue;
 
             if (this.unitsToUse != Units.Metric)
             {
-                convertedValue = convertedValue * 2.54;
+                convertedValue = convertedValue * 2.54m;
             }
             return convertedValue;
         }
@@ -78,7 +86,7 @@ namespace DispatcherTimerTest
             timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
             //set interval to 15 seconds
-            timer.Interval = new TimeSpan(0, 0, 15);
+            timer.Interval = new TimeSpan(0, 0, 2);
             //start timer
             timer.Start();
             //get a measurement when timer starts
@@ -96,6 +104,7 @@ namespace DispatcherTimerTest
         {
             //Generate random number between 1 & 10
             this.MostRecentMeasure = this.GetMeasurement();
+            StoreHistory(mostRecentMeasure);
         }
 
         //Set up Delegate to publish notification when timer_tick event fires.
@@ -109,6 +118,29 @@ namespace DispatcherTimerTest
             if (NewMeasureTick != null)
             {
                 NewMeasureTick(mostRecentMeasure);
+            }
+        }
+
+        //History
+        private void StoreHistory(int measurement)
+        {
+            if (this.queueCount < 10)
+            {
+                this.dataCaptured[this.queueCount] = measurement;
+                this.queueCount++;
+
+            }
+
+            if (this.queueCount >= 10)
+            {
+                for (int i = 0; i < this.dataCaptured.Length - 1; i++)
+                {
+                    if (i < this.dataCaptured.Length - 1)
+                    {
+                        this.dataCaptured[i] = this.dataCaptured[i + 1];
+                    }
+                }
+                dataCaptured[dataCaptured.Length - 1] = measurement;
             }
         }
     }

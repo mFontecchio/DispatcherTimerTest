@@ -9,10 +9,10 @@ namespace DispatcherTimerTest
     interface IMeasuringDevice
     {
         //This method will return a decimal that represents the metric value of the most recent measurement that was captured.
-        double MetricValue(double capturedValue);
+        decimal MetricValue(decimal capturedValue);
 
         //This method will return a decimal that represents the imperial value of the most recent measurement that was captured.
-        double ImperialValue(double capturedValue);
+        decimal ImperialValue(decimal capturedValue);
 
         //This method will start the device running. It will begin collecting measurements and record them.
         void StartCollecting();

@@ -5,8 +5,7 @@
     xmlns:local="using:DispatcherTimerTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="Black">
+    mc:Ignorable="d" RequestedTheme="Default">
 
     <Grid>
         <TextBlock x:Name="dataTest" HorizontalAlignment="Left" Margin="245,167,0,0" Text="Measurement" TextWrapping="Wrap" VerticalAlignment="Top" RequestedTheme="Default"/>
@@ -14,6 +13,10 @@
         <RadioButton x:Name="metricRadioButton" Content="Metric" HorizontalAlignment="Left" Margin="126,211,0,0" VerticalAlignment="Top" GroupName="Units" Checked="MetricRadioButton_Checked"/>
         <RadioButton x:Name="imperialRadioButton" Content="Imperial" HorizontalAlignment="Left" Margin="126,248,0,0" VerticalAlignment="Top" GroupName="Units" Checked="ImperialRadioButton_Checked"/>
         <TextBlock x:Name="newMeasure" HorizontalAlignment="Left" Margin="396,167,0,0" Text="Converted Unit" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="timeStamp" HorizontalAlignment="Left" Margin="245,142,0,0" Text="Timestamp" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ListView x:Name="measureListView" HorizontalAlignment="Left" Height="100" Margin="272,234,0,0" VerticalAlignment="Top" Width="224" Header="History"/>
+        <TextBlock x:Name="counter" HorizontalAlignment="Left" Margin="291,65,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ToggleButton x:Name="showHistory" Content="Show History" HorizontalAlignment="Left" Margin="126,302,0,0" VerticalAlignment="Top" Checked="ShowHistory_Checked" Unchecked="ShowHistory_Unchecked"/>
 
     </Grid>
 </Page>
