@@ -93,11 +93,18 @@ namespace DispatcherTimerTest
         private void ShowHistory_Checked(object sender, RoutedEventArgs e)
         {
             int[] history = newDevice.GetRawData();
-            foreach (int i in history)
+            /*foreach (int i in history)
             {
                 if (i != 0)
                 {
                     measureListView.Items.Add(i);
+                }
+            }*/
+            for (int i = history.Length-1; i >= 0; i--)
+            {
+                if (history[i] != 0)
+                {
+                    measureListView.Items.Add(history[i]);
                 }
             }
             //List<object> list = history.Cast<Object>().ToList();
