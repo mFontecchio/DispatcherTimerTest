@@ -42,19 +42,20 @@ namespace DispatcherTimerTest
         //Subscribes to notification of the above delegate.
         private void TickedTime(int mostRecentMeasure)
         {
-            this.dataTest.Text = this.newDevice.MostRecentMeasure.ToString();
+            this.mostRecentMeasure.Text = this.newDevice.MostRecentMeasure.ToString();
             //Display timestamp on tick
             timeStamp.Text = GetTimeStamp(DateTime.Now);
-            //counter.Text = newDevice.GetRawData()[].ToString();
+            //update history
+
 
             //Convert recentMeasure to the opposite unit that is selected
             if (this.newDevice.UnitsToUse == Units.Metric)
             {
-                this.newMeasure.Text = this.newDevice.ImperialValue(this.newDevice.MostRecentMeasure).ToString();
+                this.convertedUnit.Text = this.newDevice.ImperialValue(this.newDevice.MostRecentMeasure).ToString();
             }
             else
             {
-                this.newMeasure.Text = this.newDevice.MetricValue(this.newDevice.MostRecentMeasure).ToString();
+                this.convertedUnit.Text = this.newDevice.MetricValue(this.newDevice.MostRecentMeasure).ToString();
             }
         }
 
@@ -62,14 +63,14 @@ namespace DispatcherTimerTest
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             this.newDevice.StartCollecting();
-            toggleTest.Content = "Stop";
+            startStopToggle.Content = "Stop";
         }
 
         //Stop Collection
         private void ToggleTest_Unchecked(object sender, RoutedEventArgs e)
         {
             this.newDevice.StopCollecting();
-            toggleTest.Content = "Start";
+            startStopToggle.Content = "Start";
         }
 
         //User select units to convert from
@@ -114,12 +115,14 @@ namespace DispatcherTimerTest
             //    measureListView.Items.Add(i);
             //}
             showHistory.Content = "Clear History";
+            measureListView.Visibility = Visibility.Visible;
         }
 
         private void ShowHistory_Unchecked(object sender, RoutedEventArgs e)
         {
             measureListView.Items.Clear();
             showHistory.Content = "Show History";
+            measureListView.Visibility = Visibility.Collapsed;
         }
     }
 }
