@@ -8,14 +8,17 @@
     mc:Ignorable="d" RequestedTheme="Default">
 
     <Grid>
-        <TextBlock x:Name="mostRecentMeasure" HorizontalAlignment="Left" Margin="245,167,0,0" Text="Measurement" TextWrapping="Wrap" VerticalAlignment="Top" RequestedTheme="Default"/>
-        <ToggleButton x:Name="startStopToggle" Content="Start" HorizontalAlignment="Left" Margin="126,161,0,0" VerticalAlignment="Top" Checked="ToggleButton_Checked" Unchecked="ToggleTest_Unchecked"/>
-        <RadioButton x:Name="metricRadioButton" Content="Metric" HorizontalAlignment="Left" Margin="126,211,0,0" VerticalAlignment="Top" GroupName="Units" Checked="MetricRadioButton_Checked"/>
-        <RadioButton x:Name="imperialRadioButton" Content="Imperial" HorizontalAlignment="Left" Margin="126,248,0,0" VerticalAlignment="Top" GroupName="Units" Checked="ImperialRadioButton_Checked"/>
-        <TextBlock x:Name="convertedUnit" HorizontalAlignment="Left" Margin="396,167,0,0" Text="Converted Unit" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="timeStamp" HorizontalAlignment="Left" Margin="245,142,0,0" Text="Timestamp" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ListView x:Name="measureListView" HorizontalAlignment="Left" Height="100" Margin="272,234,0,0" VerticalAlignment="Top" Width="224" Header="History" BorderThickness="1,1,1,1" Visibility="Collapsed"/>
-        <ToggleButton x:Name="showHistory" Content="Show History" HorizontalAlignment="Left" Margin="126,302,0,0" VerticalAlignment="Top" Checked="ShowHistory_Checked" Unchecked="ShowHistory_Unchecked"/>
+        <TextBlock x:Name="mostRecentMeasure" HorizontalAlignment="Left" Margin="294,82,0,0" Text="{Binding MostRecentMeasure}" TextWrapping="Wrap" VerticalAlignment="Top" RequestedTheme="Default"/>
+        <ToggleButton x:Name="startStopToggle" Content="Start" HorizontalAlignment="Left" Margin="31,36,0,0" VerticalAlignment="Top" Checked="ToggleButton_Checked" Unchecked="ToggleTest_Unchecked"/>
+        <RadioButton x:Name="metricRadioButton" Content="Metric" HorizontalAlignment="Left" Margin="31,86,0,0" VerticalAlignment="Top" GroupName="Units" Checked="MetricRadioButton_Checked"/>
+        <RadioButton x:Name="imperialRadioButton" Content="Imperial" HorizontalAlignment="Left" Margin="31,123,0,0" VerticalAlignment="Top" GroupName="Units" Checked="ImperialRadioButton_Checked"/>
+        <TextBlock x:Name="convertedUnit" HorizontalAlignment="Left" Margin="480,82,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="timeStamp" HorizontalAlignment="Left" Margin="245,42,0,0" Text="Timestamp" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ListView x:Name="measureListView" HorizontalAlignment="Left" Height="300" Margin="179,128,0,0" VerticalAlignment="Top" Width="279" Header="History" BorderThickness="1,1,1,1" Visibility="Collapsed" />
+        <ToggleButton x:Name="showHistory" Content="Show History" HorizontalAlignment="Left" Margin="31,177,0,0" VerticalAlignment="Top" Checked="ShowHistory_Checked" Unchecked="ShowHistory_Unchecked"/>
+        <TextBlock x:Name="timeStampLabel" HorizontalAlignment="Left" Margin="179,42,0,0" Text="Time:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="measurementLabel" HorizontalAlignment="Left" Margin="179,82,0,0" Text="Measurement:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="convertLabel" HorizontalAlignment="Left" Margin="386,82,0,0" Text="Converted:" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

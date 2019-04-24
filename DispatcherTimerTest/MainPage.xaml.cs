@@ -42,20 +42,35 @@ namespace DispatcherTimerTest
         //Subscribes to notification of the above delegate.
         private void TickedTime(int mostRecentMeasure)
         {
-            this.mostRecentMeasure.Text = this.newDevice.MostRecentMeasure.ToString();
+            //Data Bind for mostRecentMeasure
+            DataContext = null;
+            DataContext = this.newDevice;
+
+            //Direct Update - Before WK 6 Tips
+            //this.mostRecentMeasure.Text = this.newDevice.MostRecentMeasure.ToString();
+
             //Display timestamp on tick
             timeStamp.Text = GetTimeStamp(DateTime.Now);
-            //update history
 
+            measureListView.Items.Clear();
+            int[] history = newDevice.GetRawData();
+
+            for (int i = history.Length - 1; i >= 0; i--)
+            {
+                if (history[i] != 0)
+                {
+                    measureListView.Items.Add(history[i]);
+                }
+            }
 
             //Convert recentMeasure to the opposite unit that is selected
             if (this.newDevice.UnitsToUse == Units.Metric)
             {
-                this.convertedUnit.Text = this.newDevice.ImperialValue(this.newDevice.MostRecentMeasure).ToString();
+                this.convertedUnit.Text = $"{this.newDevice.ImperialValue(this.newDevice.MostRecentMeasure).ToString()} in.";
             }
             else
             {
-                this.convertedUnit.Text = this.newDevice.MetricValue(this.newDevice.MostRecentMeasure).ToString();
+                this.convertedUnit.Text = $"{this.newDevice.MetricValue(this.newDevice.MostRecentMeasure).ToString()} cm.";
             }
         }
 
@@ -90,37 +105,28 @@ namespace DispatcherTimerTest
             return date.ToString("MM/dd/yyyy hh:mm:ss tt");
         }
 
-
+        //Show Measure History
         private void ShowHistory_Checked(object sender, RoutedEventArgs e)
         {
-            int[] history = newDevice.GetRawData();
-            /*foreach (int i in history)
-            {
-                if (i != 0)
-                {
-                    measureListView.Items.Add(i);
-                }
-            }*/
+            //Order list with most recent towards the top.
+            /*int[] history = newDevice.GetRawData();
+
             for (int i = history.Length-1; i >= 0; i--)
             {
                 if (history[i] != 0)
                 {
                     measureListView.Items.Add(history[i]);
                 }
-            }
-            //List<object> list = history.Cast<Object>().ToList();
+            }*/
 
-            //foreach (object i in list)
-            //{
-            //    measureListView.Items.Add(i);
-            //}
             showHistory.Content = "Clear History";
             measureListView.Visibility = Visibility.Visible;
         }
 
+        //Hide History and clear the list
         private void ShowHistory_Unchecked(object sender, RoutedEventArgs e)
         {
-            measureListView.Items.Clear();
+            //measureListView.Items.Clear();
             showHistory.Content = "Show History";
             measureListView.Visibility = Visibility.Collapsed;
         }

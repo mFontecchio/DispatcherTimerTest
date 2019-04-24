@@ -12,8 +12,8 @@ namespace DispatcherTimerTest
         private Units unitsToUse;               //Units - This field will determine whether the generated measurements are metric or imperial. Its value will be determined from user input.
         private int[] dataCaptured;             //This field will store a history of a limited set of recently captured measurements. Once the array is full, the class should start overwriting the oldest elements while continuing to record the newest captures.
         private int mostRecentMeasure;          //This field will store the most recent measurement captured for convenience of display
-        DispatcherTimer timer;
-        private int queueCount;
+        DispatcherTimer timer;                  // Timer to start and stop timer, tick every 15s
+        private int queueCount;                 //Helper for initial Array population
 
         //Initial Create Method
         public MeasureLengthDevice()
@@ -31,6 +31,7 @@ namespace DispatcherTimerTest
             set => this.unitsToUse = value;
         }
 
+        //Get/Set method for mostRecentMeasure
         public int MostRecentMeasure
         {
             get => this.mostRecentMeasure;
@@ -42,13 +43,13 @@ namespace DispatcherTimerTest
             }
         }
 
-        //Counter
+        //Get method for tick Counter
         public int QueueCount
         {
             get => this.queueCount;
         }
 
-        //Return the contents of the dataCapturedarray.
+        //Return the contents of the dataCaptured array.
         public int[] GetRawData()
         {
             return this.dataCaptured;
@@ -86,7 +87,7 @@ namespace DispatcherTimerTest
             timer = new DispatcherTimer();
             timer.Tick += timer_Tick;
             //set interval to 15 seconds
-            timer.Interval = new TimeSpan(0, 0, 2);
+            timer.Interval = new TimeSpan(0, 0, 15);
             //start timer
             timer.Start();
             //get a measurement when timer starts
@@ -104,7 +105,8 @@ namespace DispatcherTimerTest
         {
             //Generate random number between 1 & 10
             this.MostRecentMeasure = this.GetMeasurement();
-            StoreHistory(mostRecentMeasure);
+            //Method to store and continually populate the array with current measurements
+            StoreHistory(this.mostRecentMeasure);
         }
 
         //Set up Delegate to publish notification when timer_tick event fires.
@@ -121,7 +123,9 @@ namespace DispatcherTimerTest
             }
         }
 
-        //History
+        //Store DataCaptured array
+        //This will write until the array is full. 
+        //Upon a full array it will then shift all values down 1 index and overwrite index 9 or the max index.
         private void StoreHistory(int measurement)
         {
             if (this.queueCount < 10)
@@ -140,7 +144,7 @@ namespace DispatcherTimerTest
                         this.dataCaptured[i] = this.dataCaptured[i + 1];
                     }
                 }
-                dataCaptured[dataCaptured.Length - 1] = measurement;
+                this.dataCaptured[dataCaptured.Length - 1] = measurement;
             }
         }
     }
